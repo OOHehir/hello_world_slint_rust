@@ -1,0 +1,17 @@
+
+[profile.release]
+opt-level = "z"          # small binaries for embedded
+lto = true
+strip = true
+codegen-units = 1
+
+[profile.dev]
+opt-level = 1
+
+[dependencies]
+slint = {version = "1.8.0",  default-features = false, features = ["renderer-skia-opengl", "backend-gl-linuxkms"] }
+
+# target config for Embedded Computer with armv7l arch
+[target.armv7-unknown-linux-gnueabi]
+linker = "arm-linux-gnueabi-gcc"
+rustflags = ["-C", "target-feature=+crt-static"]

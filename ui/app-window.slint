@@ -1,0 +1,36 @@
+import { Slider } from "std-widgets.slint";
+
+export component MainWindow inherits Window {
+    width: 480px;
+    height: 480px;
+    callback slider_position_changed(index: int, value: float);
+    Text {
+        text: "LuckFox Pico Ultra BW";
+        font-size: 25px;
+        horizontal-alignment: center;
+        y: root.height / 5;
+        color: green;
+    }
+
+    Slider {
+        orientation: Orientation.vertical;
+        x: 160px;
+        y: 160px;
+        height: 220px;
+        width: 36px;
+        changed => {
+            root.slider_position_changed(0, self.value);
+        }
+    }
+
+    Slider {
+        orientation: Orientation.vertical;
+        x: 260px;
+        y: 160px;
+        height: 220px;
+        width: 36px;
+        changed => {
+            root.slider_position_changed(1, self.value);
+        }
+    }
+}
