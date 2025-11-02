@@ -1,38 +1,47 @@
-# Slint Rust Template
+# Slint Rust on LuckFox Pico Ultra W (armv7l)
 
-A template for a Rust application that's using [Slint](https://slint.rs/) for the user interface.
+## Setup
 
-## About
-
-This template helps you get started developing a Rust application with Slint as toolkit
-for the user interface. It demonstrates the integration between the `.slint` UI markup and
-Rust code, how to react to callbacks, get and set properties, and use basic widgets.
-
-## Usage
-
-1. Install Rust by following its [getting-started guide](https://www.rust-lang.org/learn/get-started).
-   Once this is done, you should have the `rustc` compiler and the `cargo` build system installed in your `PATH`.
-2. Download and extract the [ZIP archive of this repository](https://github.com/slint-ui/slint-rust-template/archive/refs/heads/main.zip).
-3. Rename the extracted directory and change into it:
+1. Install Rust and Cargo if not already installed. Follow instructions at [rustup.rs](https://rustup.rs/).
+2. Install the required Rust target for cross-compilation:
+   ```bash
+   rustup target add armv7-unknown-linux-gnueabihf
+   ```
+3. Install the ARM cross-compiler toolchain:
+   ```bash
+   sudo apt-get install gcc-arm-linux-gnueabihf
+   ```
+4. Clone this repository:
+   ```bash
+   git clone https://github.com/your_username/your_repository.git
+   cd your_repository
     ```
-    mv slint-rust-template-main my-project
-    cd my-project    
-    ```
-4. Build with `cargo`:
-    ```
-    cargo build
-    ```
-5. Run the application binary:
-    ```
-    cargo run
-    ```
+5. Update the `.cargo/config.toml` file to ensure it points to the correct linker for your system.
+6. Build the project for the ARM target:
+   ```bash
+   cargo build --release --target=armv7-unknown-linux-gnueabihf
+   ```
+7. Transfer the compiled binary from `target/armv7-unknown-linux-gnueabihf/release/` to your LuckFox Pico Ultra W device.
+8. Run the application on the device:
+   ```bash
+   ./your_application_binary
+   ```
+## Notes
+- Ensure that all dependencies are compatible with the ARM architecture.
 
-We recommend using an IDE for development, along with our [LSP-based IDE integration for `.slint` files](https://github.com/slint-ui/slint/blob/master/tools/lsp/README.md). You can also load this project directly in [Visual Studio Code](https://code.visualstudio.com) and install our [Slint extension](https://marketplace.visualstudio.com/items?itemName=Slint.slint).
+On LuckFox Ubuntut 20.04, you might need to install additional libraries for Slint to work properly.
 
-## Next Steps
+Increase CMA on cmdline:
+```
 
-We hope that this template helps you get started, and that you enjoy exploring making user interfaces with Slint. To learn more
-about the Slint APIs and the `.slint` markup language, check out our [online documentation](https://slint.dev/docs).
+sudo apt update
+sudo apt install --reinstall \
+  libgl1-mesa-dri \
+  libegl1-mesa \
+  libgles2 \
+  libgbm1 \
+  libdrm2 \
+  mesa-utils
 
-Don't forget to edit this readme to replace it by yours, and edit the `name =` field in `Cargo.toml` to match the name of your
-project.
+sudo apt install kmscube
+sudo kmscube
