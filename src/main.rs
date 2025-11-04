@@ -20,16 +20,20 @@ impl GpioController {
         let mut handles = Vec::with_capacity(line_numbers.len());
 
         for &line_number in line_numbers {
-            let handle = chip
-                .get_line(line_number)?
-                .request(LineRequestFlags::OUTPUT, 0, "slint-gpio")?;
+            let handle =
+                chip.get_line(line_number)?
+                    .request(LineRequestFlags::OUTPUT, 0, "slint-gpio")?;
             handles.push(handle);
         }
 
         Ok(Self { handles })
     }
 
-    fn write_from_slider(&mut self, index: usize, slider_value: f32) -> Result<(), gpio_cdev::Error> {
+    fn write_from_slider(
+        &mut self,
+        index: usize,
+        slider_value: f32,
+    ) -> Result<(), gpio_cdev::Error> {
         let Some(handle) = self.handles.get_mut(index) else {
             return Ok(());
         };

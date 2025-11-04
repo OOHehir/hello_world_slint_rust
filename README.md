@@ -1,29 +1,52 @@
-# Slint Rust on LuckFox Pico Ultra W (armv7l)
+# Slint Rust on LuckFox Pico Ultra W (armv7l) ![CI](https://github.com/OOHehir/hello_world_slint_rust/actions/workflows/ci.yml/badge.svg?branch=main)
 
 ## Setup
 
 1. Install Rust and Cargo if not already installed. Follow instructions at [rustup.rs](https://rustup.rs/).
 2. Install the required Rust target for cross-compilation:
+
    ```bash
    rustup target add armv7-unknown-linux-gnueabihf
    ```
+
 3. Install the ARM cross-compiler toolchain:
+
    ```bash
    sudo apt-get install gcc-arm-linux-gnueabihf
    ```
-4. Clone this repository:
+
+4. Install cross for easier cross-compilation:
+
    ```bash
-   git clone https://github.com/your_username/your_repository.git
-   cd your_repository
-    ```
-6. Update the `.cargo/config.toml` file to ensure it points to the correct linker for your system.
-7. Build the project for the ARM target:
-   ```bash
-   cargo build --release --target=armv7-unknown-linux-gnueabihf
+   cargo install cross --git https://github.com/cross-rs/cross
    ```
-8. Transfer the compiled binary from `target/armv7-unknown-linux-gnueabihf/release/` to your LuckFox Pico Ultra W device.
-9. Run the application on the device:
+
+5. Build the project for the ARM target:
+
    ```bash
-   ./your_application_binary
+   cross build --target armv7-unknown-linux-gnueabihf --workspace --exclude slint-node --exclude pyslint --release
    ```
+
+6. Transfer the compiled binary from `target/armv7-unknown-linux-gnueabihf/release/hello_world_slint_rust` to your LuckFox Pico Ultra W device.
+
+7. Run the application on the device:
+
+   ```bash
+   ./hello_world_slint_rust
+   ```
+
 ## Notes
+
+Check if you've got a hard or soft float processor by running:
+
+```bash
+readelf -A /bin/ls | grep Tag_ABI_VFP_args
+```
+
+If it shows
+
+```bash
+Tag_ABI_VFP_args: VFP registers
+```
+
+then it's a hard float target.
