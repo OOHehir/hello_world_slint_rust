@@ -38,7 +38,8 @@ jobs:
         run: cargo install cross --git https://github.com/cross-rs/cross --locked
 
       - name: Cross build (armv7 hard float)
-        run: cross build --release --target armv7-unknown-linux-gnueabihf
+        run: cross build --target armv7-unknown-linux-gnueabihf --workspace --exclude slint-node --exclude pyslint --release
 
-      - name: Cross build (armv7 soft float)
-        run: cross build --release --target armv7-unknown-linux-gnueabi
+      # The armv7 soft float target image does not exist currently
+      # - name: Cross build (armv7 soft float)
+      #   run: cross build --target armv7-unknown-linux-gnueabi --workspace --exclude slint-node --exclude pyslint --release
