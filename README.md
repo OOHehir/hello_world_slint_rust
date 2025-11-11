@@ -29,10 +29,15 @@
 
 6. Transfer the compiled binary from `target/armv7-unknown-linux-gnueabihf/release/hello_world_slint_rust` to your LuckFox Pico Ultra W device.
 
-7. Run the application on the device:
+7. On the target board install [requirements](https://github.com/slint-ui/slint/blob/ea0d0be0325f505c0c885f9f60aadf4b0da12a36/docs/building.md?plain=1#L38)
+
+8. Run the application on the device:
 
    ```bash
-   ./hello_world_slint_rust
+   sudo ./hello_world_slint_rust
+   GPIO disabled: Ioctl to get line handle failed: EBUSY: Device or resource busy
+   Using Software renderer
+   Rendering at 720x720
    ```
 
 ## Notes
