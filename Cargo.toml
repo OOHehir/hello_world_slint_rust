@@ -13,14 +13,16 @@ codegen-units = 1
 opt-level = 1
 
 [dependencies]
-slint = "1.14.1"
 gpio-cdev = "0.6"
 
+[target.'cfg(not(any(target_arch = "arm", target_arch = "aarch64")))'.dependencies]
+slint = { version = "1.14.1", default-features = true }
+
 [target.armv7-unknown-linux-gnueabi.dependencies]      # soft float
-slint = { version = "1.14.1", default-features = false, features = ["backend-linuxkms-noseat", "renderer-software"] }
+slint = { version = "1.14.1", default-features = false, features = ["compat-1-2", "backend-linuxkms-noseat", "renderer-software"] }
 
 [target.armv7-unknown-linux-gnueabihf.dependencies]    # hard float
-slint = { version = "1.14.1", default-features = false, features = ["backend-linuxkms-noseat", "renderer-software"] }
+slint = { version = "1.14.1", default-features = false, features = ["compat-1-2", "backend-linuxkms-noseat", "renderer-software"] }
 
 [build-dependencies]
 slint-build = "1.14.1"
